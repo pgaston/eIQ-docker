@@ -36,8 +36,8 @@ sudo xhost +local:root && docker run -it --rm \
   eiq
 
 # ???
-  --runtime=nvidia
-# use this one?
+*  --runtime=nvidia
+# use this one?   nah, the first works
  docker run -it --rm \
   --gpus all \
   -e "DISPLAY=$DISPLAY" \
@@ -53,7 +53,8 @@ sudo xhost +local:root && docker run -it --rm \
 # on saved container!
 /opt/nxp/eIQ_Toolkit_v1.10.0/eiq-portal
 
-# install eIQ
+
+# after docker build, first time install eIQ (has user prompts)
 
 sudo apt-get update
 sudo apt-get install tensorrt
@@ -65,21 +66,23 @@ chmod a+x eiq-toolkit-v1.10.0.57-1_amd64_b240116.deb.bin
 sudo chown root /opt/nxp/eIQ_Toolkit_v1.10.0/chrome-sandbox
 sudo chmod 4735 /opt/nxp/eIQ_Toolkit_v1.10.0/chrome-sandbox
 
-python3 -m pip install --upgrade pip
-python3 -m pip install wheel
-# python3 -m pip install --upgrade tensorrt
-sudo apt-get install tensorrt
-
+# Not sure TensorRT is really needed
+# python3 -m pip install --upgrade pip
+# python3 -m pip install wheel
+# # python3 -m pip install --upgrade tensorrt
+# sudo apt-get install tensorrt
 # there?
-dpkg-query -W tensorrt
+# dpkg-query -W tensorrt
 
-# to run eIQ inside container
+# to run eIQ inside container - frist time to set up env
 /opt/nxp/eIQ_Toolkit_v1.10.0/bin/eiqenv.sh
+
+# then commit the container!!!   thereafter you can run it with the command below
 
 # on saved container!
 /opt/nxp/eIQ_Toolkit_v1.10.0/eiq-portal
 
 
 
-/opt/nxp/eIQ_Toolkit_v1.10.0/eiq-portal --no-sandbox
+# /opt/nxp/eIQ_Toolkit_v1.10.0/eiq-portal --no-sandbox
 

@@ -1,6 +1,8 @@
 # Attempt to run eIQ on Ubuntu 22 (or 24)
 Issue is that eIQ v1.10 only runs on Ubuntu 20 (or Windows).
 
+See the file 'notes' on how to build/run.
+
 Core UI works.   Data loads.    (Pascal VOC train/test from manual.)
 
 Current issues:
