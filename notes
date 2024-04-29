@@ -1,0 +1,85 @@
+-- finding a good docker image
+ docker run -it --rm --gpus all --runtime=nvidia tensorflow/tensorflow:2.8.2-gpu
+
+
+
+## Build
+docker build -t eiq:latest .
+## First run -not needed
+docker run -it --gpus all --name eiq eiq:latest
+## Save container as named image   (? not tried yet)
+docker commit container_id image_name
+docker commit eiq
+
+# (remove evenrything)
+docker system prune -a
+# remove a container
+docker ps -a
+# remove an image
+docker image list
+docker image rm eiq
+
+## Production run
+# add/change folders to map over
+sudo xhost +local:root && docker run -it --rm \
+  --gpus all \
+  -e "DISPLAY=$DISPLAY" \
+  -v /home/pg/Documents:/Documents \
+  -v /home/pg/Downloads:/Downloads \
+  -v /media/pg/Expansion/data:/data \
+  -v /dev:/dev \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  --entrypoint bash \
+  --network host \
+  --privileged \
+  -e QT_X11_NO_MITSHM=1 \
+  eiq
+
+# ???
+  --runtime=nvidia
+# use this one?
+ docker run -it --rm \
+  --gpus all \
+  -e "DISPLAY=$DISPLAY" \
+  -v /home/pg/Documents:/Documents \
+  -v /home/pg/Downloads:/Downloads \
+  -v /media/pg/Expansion/data:/data \
+  -v /dev:/dev \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  --entrypoint bash \
+  --network host \
+  eiq
+
+# on saved container!
+/opt/nxp/eIQ_Toolkit_v1.10.0/eiq-portal
+
+# install eIQ
+
+sudo apt-get update
+sudo apt-get install tensorrt
+cd /Downloads
+unzip eiq-toolkit-v1.10.0.57-1_amd64_b240116.deb.bin
+chmod a+x eiq-toolkit-v1.10.0.57-1_amd64_b240116.deb.bin
+./eiq-toolkit-v1.10.0.57-1_amd64_b240116.deb.bin
+
+sudo chown root /opt/nxp/eIQ_Toolkit_v1.10.0/chrome-sandbox
+sudo chmod 4735 /opt/nxp/eIQ_Toolkit_v1.10.0/chrome-sandbox
+
+python3 -m pip install --upgrade pip
+python3 -m pip install wheel
+# python3 -m pip install --upgrade tensorrt
+sudo apt-get install tensorrt
+
+# there?
+dpkg-query -W tensorrt
+
+# to run eIQ inside container
+/opt/nxp/eIQ_Toolkit_v1.10.0/bin/eiqenv.sh
+
+# on saved container!
+/opt/nxp/eIQ_Toolkit_v1.10.0/eiq-portal
+
+
+
+/opt/nxp/eIQ_Toolkit_v1.10.0/eiq-portal --no-sandbox
+
